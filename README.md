@@ -1,7 +1,7 @@
 ## 概要
 react,javascriptの脆弱性メモ（お勉強用）です。<br>
 
-## Javascript メモ
+## Javascript
 JavaScriptでREST APIを構築・利用する際の典型的な脆弱性とそれらの対策について<br>
 ### 1.不適切なエンドポイントの公開
 エンドポイントが不適切に公開されている場合、不正なアクセスが許可される可能性があります。
@@ -52,3 +52,41 @@ app.use(function(req, res, next) {
 });
 ```
 対策: 必要なオリジンのみを許可するようにCORSポリシーを設定します。<br><br>
+
+## React
+### 1.クロスサイトスクリプティング (XSS)
+ReactはJSXのコンテンツをデフォルトでエスケープしますが、dangerouslySetInnerHTMLの不適切な使用はXSS攻撃を許容する可能性があります。
+```jsx
+function UserProfile({ userData }) {
+  return <div dangerouslySetInnerHTML={{ __html: userData.profile }} />;
+}
+```
+対策: dangerouslySetInnerHTMLを使用する場合は、その内容が安全であることを確認するか、他の手段でデータを表示するようにします。<br><br>
+
+### 2.不適切な状態管理
+```jsx
+localStorage.setItem('userToken', user.token);
+```
+対策: センシティブな情報は安全な場所に保存します。例えば、トークンはHTTP Onlyのクッキーに保存すると良いでしょう。<br><br>
+
+### 3.コンポーネントの隠蔽不足
+認証や認可が必要なコンポーネントを、適切に隠蔽しないと情報が漏洩する可能性があります。
+```jsx
+function AdminPanel() {
+  // ...
+}
+```
+対策: 認証や認可のロジックを適切に実装し、不正なアクセスを防ぎます。<br><br>
+
+### 4.不適切なエラーハンドリング
+エラーメッセージをユーザーに公開すると、アプリケーションの詳細や構造が露呈する恐れがあります。
+```jsx
+function FetchData() {
+  const [error, setError] = useState(null);
+  // ...
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+}
+```
+対策: エラーメッセージはロギングし、ユーザーには一般的なエラーメッセージのみを表示します。<br><br>
