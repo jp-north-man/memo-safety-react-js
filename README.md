@@ -1,5 +1,5 @@
 ## 概要
-react,javascriptの脆弱性メモ（お勉強用）です。<br>
+react,javascriptの脆弱性メモ（自分用）です。<br>
 
 ## Javascript
 JavaScriptでREST APIを構築・利用する際の典型的な脆弱性とそれらの対策について<br>
