@@ -18,7 +18,13 @@ JavaScriptでAPIのレスポンスとして返されるデータが、クライ�
 let userData = JSON.parse(response);
 document.getElementById('user').innerHTML = userData.name;
 ```
-対策: データを安全にエスケープしてから表示します。また、.textContentを使用すると、HTMLとして解釈されないため、安全です。<br><br>
+対策: データを安全にエスケープしてから表示します。また、.textContentを使用すると、HTMLとして解釈されないため、安全です。<br>
+例:
+```js
+let userData = JSON.parse(response);
+document.getElementById('user').textContent = userData.name;
+```
+<br><br>
 
 ### 3.クロスサイトリクエストフォージェリ (CSRF)
 APIを不正に呼び出されるリスクがあります。<br>
@@ -41,7 +47,21 @@ app.get('/user', function(req, res) {
     }
 });
 ```
-対策: 一般的なエラーメッセージを返すようにし、詳細な情報はロギングします。<br><br>
+対策: 一般的なエラーメッセージを返すようにし、詳細な情報はロギングします。<br>
+例:
+```js
+const logger = require('winston');  // 例としてwinstonロギングライブラリを使用
+app.get('/user', function(req, res) {
+    // ...
+    if (error) {
+        // 詳細なエラー情報をロギング
+        logger.error(`Error fetching user: ${error.message}`);
+        // 一般的なエラーメッセージをクライアントに返す
+        res.status(500).send('Internal Server Error');
+    }
+});
+```
+<br><br>
 
 ### 6.不適切なCORS設定
 全てのオリジンからのAPIアクセスを許可するような設定は、セキュリティのリスクとなります。
