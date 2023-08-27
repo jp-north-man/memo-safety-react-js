@@ -1,3 +1,6 @@
+## 概要
+react,javascriptの脆弱性メモ（お勉強用）です。<br>
+
 ## Javascript メモ
 JavaScriptでREST APIを構築・利用する際の典型的な脆弱性とそれらの対策について<br>
 ### 1.不適切なエンドポイントの公開
