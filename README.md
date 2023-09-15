@@ -129,15 +129,3 @@ function AdminPanel() {
 ```
 対策: 認証や認可のロジックを適切に実装（useContextなどを使う）、不正なアクセスを防ぎます。<br><br>
 
-### 4.不適切なエラーハンドリング
-エラーメッセージをユーザーに公開すると、アプリケーションの詳細や構造が露呈する恐れがあります。
-```jsx
-function FetchData() {
-  const [error, setError] = useState(null);
-  // ...
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-}
-```
-対策: エラーメッセージはロギングし、ユーザーには一般的なエラーメッセージのみを表示します。<br><br>
