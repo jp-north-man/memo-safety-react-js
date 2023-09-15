@@ -29,6 +29,31 @@ document.getElementById('user').textContent = userData.name;
 ### 3.クロスサイトリクエストフォージェリ (CSRF)
 APIを不正に呼び出されるリスクがあります。<br>
 対策: CSRFトークンを使用して、APIのリクエストが正当なものか確認します。<br><br>
+例:
+```js
+const [csrfToken, setCsrfToken] = useState(null);
+
+useEffect(() => {
+  // CSRFトークンを取得
+  axios.get('/api/csrf-token').then(response => {
+    setCsrfToken(response.data.token);
+  });
+}, []);
+
+const handleAction = () => {
+  axios.post('/api/action', {}, {
+    headers: {
+      'CSRF-Token': csrfToken
+    }
+  }).then(response => {
+    console.log(response.data);
+  }).catch(error => {
+    console.error("Error:", error);
+  });
+};
+
+```
+<br><br>
 
 ### 4.不適切な入力バリデーション
 入力データがAPIに適切に検証されない場合、SQLインジェクションやその他の攻撃が可能になります。
