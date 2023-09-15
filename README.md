@@ -55,14 +55,8 @@ const handleAction = () => {
 ```
 <br><br>
 
-### 4.不適切な入力バリデーション
-入力データがAPIに適切に検証されない場合、SQLインジェクションやその他の攻撃が可能になります。
-```js
-let query = `SELECT * FROM users WHERE name = ${req.body.name}`;
-```
-対策: パラメータ化クエリを使用し、またはORMツールを使用してデータアクセスを行います。<br><br>
 
-### 5.不適切なエラーハンドリング
+### 4.不適切なエラーハンドリング
 詳細なエラーメッセージを公開することは、攻撃者にシステムの情報を提供する可能性があります。
 ```js
 app.get('/user', function(req, res) {
@@ -88,7 +82,7 @@ app.get('/user', function(req, res) {
 ```
 <br><br>
 
-### 6.不適切なCORS設定
+### 5.不適切なCORS設定
 全てのオリジンからのAPIアクセスを許可するような設定は、セキュリティのリスクとなります。
 ```js
 app.use(function(req, res, next) {
@@ -98,7 +92,7 @@ app.use(function(req, res, next) {
 ```
 対策: 必要なオリジンのみを許可するようにCORSポリシーを設定します。<br><br>
 
-### 7.不適切な状態管理
+### 6.不適切な状態管理
 ```jsx
 localStorage.setItem('userToken', user.token);
 ```
