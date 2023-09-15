@@ -98,6 +98,16 @@ app.use(function(req, res, next) {
 ```
 対策: 必要なオリジンのみを許可するようにCORSポリシーを設定します。<br><br>
 
+### 7.不適切な状態管理
+```jsx
+localStorage.setItem('userToken', user.token);
+```
+対策: センシティブな情報は安全な場所に保存します。例えば、トークンはHTTP Onlyのクッキーに保存すると良いでしょう。<br><br>
+```js
+res.cookie('userToken', userToken, { httpOnly: true, secure: true });
+```
+<br><br>
+
 ## React
 ### 1.クロスサイトスクリプティング (XSS)
 ReactはJSXのコンテンツをデフォルトでエスケープしますが、dangerouslySetInnerHTMLの不適切な使用はXSS攻撃を許容する可能性があります。
@@ -107,12 +117,6 @@ function UserProfile({ userData }) {
 }
 ```
 対策: dangerouslySetInnerHTMLを使用する場合は、その内容が安全であることを確認するか、他の手段でデータを表示するようにします。<br><br>
-
-### 2.不適切な状態管理
-```jsx
-localStorage.setItem('userToken', user.token);
-```
-対策: センシティブな情報は安全な場所に保存します。例えば、トークンはHTTP Onlyのクッキーに保存すると良いでしょう。<br><br>
 
 ### 3.コンポーネントの隠蔽不足
 認証や認可が必要なコンポーネントを、適切に隠蔽しないと情報が漏洩する可能性があります。
