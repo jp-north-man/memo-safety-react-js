@@ -120,7 +120,7 @@ function UserProfile({ userData }) {
 ```
 <br><br>
 
-### 3.コンポーネントの隠蔽不足
+### 2.コンポーネントの隠蔽不足
 認証や認可が必要なコンポーネントを、適切に隠蔽しないと情報が漏洩する可能性があります。
 ```jsx
 function AdminPanel() {
