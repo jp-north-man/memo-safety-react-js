@@ -111,6 +111,14 @@ function UserProfile({ userData }) {
 }
 ```
 対策: dangerouslySetInnerHTMLを使用する場合は、その内容が安全であることを確認するか、他の手段でデータを表示するようにします。<br><br>
+例:JSX内に直接値を入れる
+```jsx
+function UserProfile({ userData }) {
+  return <div>{userData.profile}</div>;
+}
+
+```
+<br><br>
 
 ### 3.コンポーネントの隠蔽不足
 認証や認可が必要なコンポーネントを、適切に隠蔽しないと情報が漏洩する可能性があります。
