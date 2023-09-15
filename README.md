@@ -7,7 +7,6 @@ JavaScriptでREST APIを構築・利用する際の典型的な脆弱性とそ�
 エンドポイントが不適切に公開されている場合、不正なアクセスが許可される可能性があります。
 ```js
 app.get('/admin/users', function(req, res) {
-    // 全てのユーザーの情報を返す
 });
 ```
 対策: 適切な認証・認可を行い、権限のないユーザーがアクセスできないようにします。<br><br>
@@ -112,7 +111,6 @@ function UserProfile({ userData }) {
 認証や認可が必要なコンポーネントを、適切に隠蔽しないと情報が漏洩する可能性があります。
 ```jsx
 function AdminPanel() {
-  // ...
 }
 ```
 対策: 認証や認可のロジックを適切に実装（useContextなどを使う）、不正なアクセスを防ぎます。<br><br>
@@ -125,7 +123,6 @@ APIを不正に呼び出されるリスクがあります。<br>
 const [csrfToken, setCsrfToken] = useState(null);
 
 useEffect(() => {
-  // CSRFトークンを取得
   axios.get('/api/csrf-token').then(response => {
     setCsrfToken(response.data.token);
   });
