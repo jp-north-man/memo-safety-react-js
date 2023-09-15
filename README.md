@@ -44,37 +44,7 @@ document.getElementById('user').textContent = userData.name;
 ```
 <br><br>
 
-### 3.クロスサイトリクエストフォージェリ (CSRF)
-APIを不正に呼び出されるリスクがあります。<br>
-対策: CSRFトークンを使用して、APIのリクエストが正当なものか確認します。<br><br>
-例:
-```js
-const [csrfToken, setCsrfToken] = useState(null);
-
-useEffect(() => {
-  // CSRFトークンを取得
-  axios.get('/api/csrf-token').then(response => {
-    setCsrfToken(response.data.token);
-  });
-}, []);
-
-const handleAction = () => {
-  axios.post('/api/action', {}, {
-    headers: {
-      'CSRF-Token': csrfToken
-    }
-  }).then(response => {
-    console.log(response.data);
-  }).catch(error => {
-    console.error("Error:", error);
-  });
-};
-
-```
-<br><br>
-
-
-### 4.不適切なエラーハンドリング
+### 3.不適切なエラーハンドリング
 詳細なエラーメッセージを公開することは、攻撃者にシステムの情報を提供する可能性があります。
 ```js
 app.get('/user', function(req, res) {
@@ -99,7 +69,7 @@ app.get('/user', function(req, res) {
 ```
 <br><br>
 
-### 5.不適切なCORS設定
+### 4.不適切なCORS設定
 全てのオリジンからのAPIアクセスを許可するような設定は、セキュリティのリスクとなります。
 ```js
 app.use(function(req, res, next) {
@@ -109,7 +79,7 @@ app.use(function(req, res, next) {
 ```
 対策: 必要なオリジンのみを許可するようにCORSポリシーを設定します。<br><br>
 
-### 6.不適切な状態管理
+### 5.不適切な状態管理
 ```jsx
 localStorage.setItem('userToken', user.token);
 ```
@@ -147,3 +117,31 @@ function AdminPanel() {
 ```
 対策: 認証や認可のロジックを適切に実装（useContextなどを使う）、不正なアクセスを防ぎます。<br><br>
 
+### 3.クロスサイトリクエストフォージェリ (CSRF)
+APIを不正に呼び出されるリスクがあります。<br>
+対策: CSRFトークンを使用して、APIのリクエストが正当なものか確認します。<br><br>
+例:
+```js
+const [csrfToken, setCsrfToken] = useState(null);
+
+useEffect(() => {
+  // CSRFトークンを取得
+  axios.get('/api/csrf-token').then(response => {
+    setCsrfToken(response.data.token);
+  });
+}, []);
+
+const handleAction = () => {
+  axios.post('/api/action', {}, {
+    headers: {
+      'CSRF-Token': csrfToken
+    }
+  }).then(response => {
+    console.log(response.data);
+  }).catch(error => {
+    console.error("Error:", error);
+  });
+};
+
+```
+<br><br>
