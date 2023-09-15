@@ -35,7 +35,7 @@ JavaScriptでAPIのレスポンスとして返されるデータが、クライ�
 let userData = JSON.parse(response);
 document.getElementById('user').innerHTML = userData.name;
 ```
-対策: データを安全にエスケープしてから表示します。また、.textContentを使用すると、HTMLとして解釈されないため、安全です。<br>
+対策: .innerHTMLを使用する代わりに.textContentを使用することは、テキストデータを安全にDOMに挿入します。指定されたテキストをそのままテキストとして描画します。HTMLやJavaScriptとして解釈されません。<br>
 例:
 ```js
 let userData = JSON.parse(response);
