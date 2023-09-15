@@ -69,13 +69,12 @@ app.get('/user', function(req, res) {
 対策: 一般的なエラーメッセージを返すようにし、詳細な情報はロギングします。<br>
 例:
 ```js
-const logger = require('winston');  // 例としてwinstonロギングライブラリを使用
+const logger = require('winston');
 app.get('/user', function(req, res) {
-    // ...
     if (error) {
-        // 詳細なエラー情報をロギング
+        // 詳細なエラー情報をロギングします
         logger.error(`Error fetching user: ${error.message}`);
-        // 一般的なエラーメッセージをクライアントに返す
+        // 一般的なエラーメッセージをクライアントに返します
         res.status(500).send('Internal Server Error');
     }
 });
