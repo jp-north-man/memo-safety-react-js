@@ -95,7 +95,7 @@ app.use(function(req, res, next) {
 ```jsx
 localStorage.setItem('userToken', user.token);
 ```
-対策: センシティブな情報は安全な場所に保存します。例えば、トークンはHTTP Onlyのクッキーに保存すると良いでしょう。<br><br>
+対策: センシティブな情報（特に認証トークンなど）は安全な場所に保存します。例えば、トークンはHTTP Onlyのクッキーに保存すると良いです。<br><br>
 例:
 ```js
 res.cookie('userToken', userToken, { httpOnly: true, secure: true });
