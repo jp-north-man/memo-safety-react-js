@@ -11,6 +11,24 @@ app.get('/admin/users', function(req, res) {
 });
 ```
 対策: 適切な認証・認可を行い、権限のないユーザーがアクセスできないようにします。<br><br>
+例:JWTを検証するミドルウェア実装するなど
+```js
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const expressJwt = require('express-jwt');
+
+const app = express();
+const SECRET_KEY = 'my-secret-key';
+const jwtMiddleware = expressJwt({ secret: SECRET_KEY, algorithms: ['HS256'] });
+
+app.get('/admin/users', jwtMiddleware, function(req, res) {
+    if (!req.user.admin) {
+        return res.status(403).send('だめ');
+    }
+});
+```
+<br><br>
+
 
 ### 2.クロスサイトスクリプティング (XSS)
 JavaScriptでAPIのレスポンスとして返されるデータが、クライアントサイドで安全でない方法で描画されるとXSSのリスクが生じます。
